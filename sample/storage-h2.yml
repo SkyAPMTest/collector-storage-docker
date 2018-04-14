@@ -14,17 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#cluster:
-#  zookeeper:
-#    hostPort: localhost:2181
-#    sessionTimeout: 100000
 naming:
   jetty:
     host: localhost
     port: 10800
     contextPath: /
 cache:
-#  guava:
   caffeine:
 remote:
   gRPC:
@@ -34,12 +29,6 @@ agent_gRPC:
   gRPC:
     host: localhost
     port: 11800
-    #Set these two setting to open ssl
-    #sslCertChainFile: $path
-    #sslPrivateKeyFile: $path
-
-    #Set your own token to active auth
-    #authentication: xxxxxx
 agent_jetty:
   jetty:
     host: localhost
@@ -59,21 +48,12 @@ ui:
     host: localhost
     port: 12800
     contextPath: /
-#storage:
-#  elasticsearch:
-#    clusterName: CollectorDBCluster
-#    clusterTransportSniffer: true
-#    clusterNodes: localhost:9300
-#    indexShardsNumber: 2
-#    indexReplicasNumber: 0
-#    ttl: 7
 storage:
   h2:
     url: jdbc:h2:~/memorydb
     userName: sa
 configuration:
   default:
-#     namespace: xxxxx
     applicationApdexThreshold: 2000
     serviceErrorRateThreshold: 10.00
     serviceAverageResponseTimeThreshold: 2000
