@@ -36,7 +36,7 @@ services:
     restart: always
     network_mode: "host"
     volumes:
-      - ./collector-storage-docker/es-rest/storage-es.yml:/usr/lib/skywalking/config/application.yml
+      - ./collector-storage-docker/es-transport/storage-es.yml:/usr/lib/skywalking/config/application.yml
     environment:
       - TEST_DATABASE
     command: ["bash","collectorService.sh"]
