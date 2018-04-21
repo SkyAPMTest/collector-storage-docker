@@ -15,18 +15,18 @@
 # limitations under the License.
 version: '3'
 services:
- # skywalking-h2:
- #   container_name: skywalking-h2
- #   image: 
- #   restart: always
- #  environment:
- #     - "url: jdbc:h2:~/memorydb"
- #     - "userName=sa"
- #   ulimits:
- #     memlock:
- #       soft: -1
- #       hard: -1
- #   network_mode: "host"
+   skywalking-h2:
+    container_name: skywalking-h2
+    image: 
+    restart: always
+    environment:
+      - "url: jdbc:h2:tcp://localhost/~/test"
+      - "userName=sa"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    network_mode: "host"
   skywalking-collectorService:
     container_name: skywalking-collectorService
     image: skywalking:latest
