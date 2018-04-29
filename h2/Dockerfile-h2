@@ -13,27 +13,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-version: '3'
-services:
-   skywalking-h2:
-    container_name: skywalking-h2
-    image: 
-    restart: always
-    environment:
-      - "url: jdbc:h2:tcp://localhost/~/test"
-      - "userName=sa"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    network_mode: "host"
-  skywalking-collectorService:
-    container_name: skywalking-collectorService
-    image: skywalking:latest
-    restart: always
-    network_mode: "host"
-    volumes:
-      - ./collector-storage-docker/h2/application.yml:/usr/lib/skywalking/config/application.yml
-    environment:
-      - TEST_DATABASE
-    command: ["bash","collectorService.sh"]
+FROM maven:3.5.3-jdk-8 as builder
+
+LABEL maintainer="HanSenJ <28707699@qq.com>"
+
+ENV DOWNLOAD http://www.h2database.com/h2-2018-03-18.zip
+ENV DATA_DIR /opt/h2-data
+
+RUN curl ${DOWNLOAD} -o h2.zip \
+    && unzip h2.zip -d /opt/ \
+    && rm h2.zip \
+    && mkdir -p ${DATA_DIR}
+
+EXPOSE 81 1521
+
+CMD java -cp /opt/h2/bin/h2*.jar org.h2.tools.Server \
+ 	-web -webAllowOthers -webPort 81 \
+ 	-tcp -tcpAllowOthers -tcpPort 1521 \
+ 	-baseDir ${DATA_DIR}
